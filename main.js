@@ -11,12 +11,8 @@ const app = express()
 
 
 app.use(express.json())
-// app.use(cors());
-app.use(cors({
-          origin:  '*',
-          methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-          allowedHeaders: ['Content-Type', 'Authorization'],
-        }));
+app.use(cors());
+
 app.use(logger)
 app.use('/users', userRouter)
 app.use('/auth', authRouter)
