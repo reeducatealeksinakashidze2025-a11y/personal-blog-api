@@ -19,9 +19,13 @@ app.use('/blog', blogRouter)
 app.use('/comment', commentRouter)
 
 
-connectToDB().then(() => {
-    app.listen(3000, () => {
-        console.log('server running on http://localhost:3000')
-    })
-})
+// connectToDB().then(() => {
+//     app.listen(3000, () => {
+//         console.log('server running on http://localhost:3000')
+//     })
+// })
+
+connectToDB().catch(err => console.error('DB connection failed', err));
+
+export default app;
 
