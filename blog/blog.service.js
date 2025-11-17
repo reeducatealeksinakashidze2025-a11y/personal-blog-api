@@ -31,7 +31,7 @@ const blogModel = require("./blog.model")
 //     const { search = '' } = req.query;
 //     console.log("Search query:", search);
 
-//     // თუ userOnly parameter არაა, გამოტანა ყველას
+//    
 //     const blogs = await exports.fetchBlogs({ search });
 //     return res.json(responseBase.success(blogs));
 //   } catch (err) {

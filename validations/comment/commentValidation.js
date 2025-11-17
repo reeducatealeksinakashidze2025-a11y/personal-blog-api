@@ -1,10 +1,8 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-// Joi ვალიდაციის სკემა
 const commentValidationSchema = Joi.object({
     // blog: Joi.string().required().custom((value, helpers) => {
-    //     // ვალიდაცია ObjectId-სთვის
     //     if (!mongoose.Types.ObjectId.isValid(value)) {
     //         return helpers.error("any.invalid");
     //     }

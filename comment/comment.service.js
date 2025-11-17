@@ -2,7 +2,6 @@ const commentModel = require("./comment.model");
 const responseBase = require("../utils/response-base");
 const mongoose = require("mongoose");
 
-// ყველა კომენტარი კონკრეტული ბლოგისთვის
 // exports.getCommentsByBlogId = async (req, res) => {
 //     try {
 //         const blogId = req.params.blogId;
@@ -11,12 +10,10 @@ const mongoose = require("mongoose");
 //             return res.status(400).json(responseBase.fail("Invalid blog id"));
 //         }
 
-//         // მხოლოდ მთავარი კომენტარები (parentComment=null), populate ავტორი
 //         const comments = await commentModel.find({ blog: blogId, parentComment: null })
 //             .populate('author', '-posts')
 //             .lean();
 
-//         // ფუნქცია nested replies ჩასატვირთად
 //         const loadReplies = async (comment) => {
 //             const replies = await commentModel.find({ parentComment: comment._id })
 //                 .populate('author', '-posts')
@@ -78,7 +75,6 @@ exports.getCommentsByBlogId = async (req, res) => {
 };
 
 
-// კონკრეტული კომენტარი
 exports.getCommentById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -96,7 +92,6 @@ exports.getCommentById = async (req, res) => {
     }
 };
 
-// ახალი კომენტარის შექმნა
 exports.createComment = async (req, res) => {
     try {
         const { blogId, parentCommentId, text } = req.body;
@@ -125,7 +120,6 @@ exports.createComment = async (req, res) => {
     }
 };
 
-// კომენტარის განახლება
 exports.updateComment = async (req, res) => {
     try {
         const id = req.params.id;
@@ -137,7 +131,7 @@ exports.updateComment = async (req, res) => {
         }
 
         const updatedComment = await commentModel.findOneAndUpdate(
-            { _id: id, author }, // მარტო ავტორი შეძლებს განახლება
+            { _id: id, author }, 
             { text },
             { new: true }
         );
@@ -151,7 +145,6 @@ exports.updateComment = async (req, res) => {
     }
 };
 
-// კომენტარის წაშლა (ყველა nested reply-ით)
 exports.deleteCommentById = async (req, res) => {
     try {
         const id = req.params.id;
@@ -164,7 +157,6 @@ exports.deleteCommentById = async (req, res) => {
         const commentToDelete = await commentModel.findOne({ _id: id, author });
         if (!commentToDelete) return res.status(404).json(responseBase.fail("Comment not found or unauthorized"));
 
-        // recursive ფუნქცია nested reply-ებისთვის
         const deleteReplies = async (commentId) => {
             const replies = await commentModel.find({ parentComment: commentId });
             for (let r of replies) {
