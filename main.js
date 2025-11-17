@@ -11,7 +11,11 @@ const app = express()
 
 
 app.use(express.json())
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+    origin: 'https://personal-blog-coral-theta.vercel.app',
+    credentials: true
+}));
 app.use(logger)
 app.use('/users', userRouter)
 app.use('/auth', authRouter)
